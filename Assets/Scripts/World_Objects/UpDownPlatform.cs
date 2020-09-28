@@ -9,7 +9,7 @@ public class UpDownPlatform : MonoBehaviour
     public double maxHeight;
     public float speed;
 
-    bool isTop, isLow;
+    public bool isTop, isLow;
 
     private void Update()
     {
@@ -22,23 +22,23 @@ public class UpDownPlatform : MonoBehaviour
 
     private void Move()
     {
-        if(isLow)
+        if(isTop)
         {
             transform.position += transform.up * speed * Time.deltaTime;
         }
-        else if(isTop)
+        else if(isLow)
         {
             transform.position += -transform.up * speed * Time.deltaTime;
         }
 
-        if(transform.position.y >= maxHeight && !isLow)
-        {
-            isTop = false;
-            isLow = true;
-        }else if(transform.position.y <= minHeight && !isTop)
+        if(transform.position.y <= minHeight && !isTop)
         {
             isLow = false;
             isTop = true;
+        }else if(transform.position.y >= maxHeight && !isLow)
+        {
+            isTop = false;
+            isLow = true;
         }
     }
 }
