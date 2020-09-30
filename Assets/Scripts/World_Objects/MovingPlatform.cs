@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public static int maxRightLength = 25;
-    public static int maxLeftLength = -25;
+    public int maxRightLength = 25;
+    public int maxLeftLength = -25;
     public float speed;
 
     public bool isRight, isLeft;

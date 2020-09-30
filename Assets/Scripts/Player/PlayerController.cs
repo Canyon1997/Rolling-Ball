@@ -130,8 +130,15 @@ public class PlayerController : MonoBehaviour
             isDead = true;
         }else if(other.gameObject.CompareTag("Finish"))
         {
-            WinText.text = "Level Completed! Press F to continue!";
-            gameFinished = true;
+            if(SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                WinText.text = "Game Completed! Press F to restart the game.\nThank you for playing! - Canyon";
+                gameFinished = true;
+            }else
+            {
+                WinText.text = "Level Completed! Press F to continue!";
+                gameFinished = true;
+            }
         }
     }
 
