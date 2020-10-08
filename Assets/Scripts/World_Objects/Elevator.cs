@@ -14,6 +14,7 @@ public class Elevator : MonoBehaviour
             Elevating();
     }
 
+    // Detects if the player landed on the elevator object
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Player"))
@@ -22,6 +23,10 @@ public class Elevator : MonoBehaviour
         }
     }
 
+    /*
+     * Has a boolean, goDown, that states if the elevator should move downwards. If false, the elevator moves up
+     * Checks to see if the onMe boolean is true and moves the elevator to the heightLimit adjusted in the inspector
+     */
     void Elevating()
     {
         if(onMe && transform.position.y <= heightLimit)

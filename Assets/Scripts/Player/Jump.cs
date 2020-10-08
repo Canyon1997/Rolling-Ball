@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public class Jump : MonoBehaviour
@@ -10,8 +11,10 @@ public class Jump : MonoBehaviour
     [SerializeField] int maxJump = 0;
     private bool jumped;
 
+    //Gets the rigidbody component before the first frame
     private void Awake() => rb = GetComponent<Rigidbody>();
 
+    //Checks if the player has already jumped or not
     void Update()
     {
         if(jumped == false)
@@ -20,6 +23,7 @@ public class Jump : MonoBehaviour
         }   
     }
 
+    //Checks if the player is grounded. If so, the player gets force in the Y direction performing a jump
     private void FixedUpdate()
     {
         if(jumped && maxJump == 0)
@@ -29,6 +33,7 @@ public class Jump : MonoBehaviour
         }
     }
 
+    //The planes labelled ground are the "isGrounded" states, so once the player jumps and lands, they can jump again
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Ground"))

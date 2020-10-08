@@ -9,6 +9,12 @@ public class CameraController : MonoBehaviour
 
     private Vector3 offset;
 
+
+    /*
+     * Locks cursor to the middle of the screen
+     * Hides cursor on the first frame
+     * Gets the difference in distance between the camera and player
+     */
     void Start()
     {
         Cursor.visible = false;
@@ -16,7 +22,7 @@ public class CameraController : MonoBehaviour
         offset = transform.position - player.transform.position;
     }
 
-    // Update is called once per frame
+    // Takes the current camera position and sets it to the player position plus the offset distance calculated on the first frame
     void Update()
     {
         transform.position = player.transform.position + offset;

@@ -24,8 +24,11 @@ public class PlayerController : MonoBehaviour
     bool gameFinished;
     bool isDead;
 
+    //Gets rigidbody component from player before the first frame
     private void Awake() => rb = GetComponent<Rigidbody>();
 
+    //Sets Score UI and hides the other UI text until their states turn true
+    //maxSpeed set to cap the amount of force applied to player movement so its not infinite
     void Start()
     {
         LoseText.text = "";
@@ -42,11 +45,14 @@ public class PlayerController : MonoBehaviour
         NextLevel();
     }
 
+    //Since we are dealing with physics, we need to place this function in FixedUpdate
     void FixedUpdate()
     {
         Movement();
     }
 
+    //Sets player movement via physics, player can control the ball until they have successfuly finished the level
+    //Player will only be able to have a maximum amount of force applied to them via maxSpeed
     void Movement()
     {
         if(rb.velocity.magnitude >= maxSpeed)
@@ -64,12 +70,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Counts how many collectibles are picked up and updates the score in the Update function
     void ScoreUI()
     {
         scoreText.text = "Score: " + score.ToString();
         CollectibleCount();
     }
 
+    //Checks if the player is dead and has pressed "R" to restart the game
     void RestartLevel()
     {
         if (isDead && Input.GetKey(KeyCode.R))
@@ -78,11 +86,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Advances you to the next level. Gets the build index number so if youre on the last level, you restart the game on level 1
     void NextLevel()
     {
         if(gameFinished && Input.GetKey(KeyCode.F))
         {
-            //Checks if youre on the last level in the array, loads the first level if true.
             if(SceneManager.GetActiveScene().buildIndex >= 2)
             {
                 SceneManager.LoadScene(0);
@@ -93,7 +101,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void CollectibleCount() //Checks how many items were collected
+    //Checks how many items were collected
+    private void CollectibleCount()
     {
         if (gameFinished)
         {
@@ -118,6 +127,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Triggers for certain things within the game like picking up objects, dying, and finishing the game
+    //Updates the UI respectively to what has been triggered
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Pick Up"))
@@ -142,6 +153,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Checks if the player is colliding with the ramp and gives the player a speed boost
+    //Resets players speed back to the original state once the player is off the ramp
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Ramp"))

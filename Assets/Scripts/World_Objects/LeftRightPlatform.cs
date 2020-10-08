@@ -3,31 +3,24 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
+public class LeftRightPlatform : MonoBehaviour
 {
     public int maxRightLength = 25;
     public int maxLeftLength = -25;
     public float speed;
 
-    public bool isRight, isLeft;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private bool isRight, isLeft;
 
-    // Update is called once per frame
     void Update()
     {
         Move();
         MoveDirection();
-
-        if(isRight && isLeft)
-        {
-            Debug.LogError("Both can not be true at the same time!");
-        }
     }
 
+    /*
+     * states if the object should be moving to the left or right based on if the object has reached the min or max length
+     * boolean stats will switch to which direction the object should be moving
+     */
     void MoveDirection()
     {
         if(transform.position.x >= maxRightLength && !isLeft)
@@ -42,14 +35,15 @@ public class MovingPlatform : MonoBehaviour
         }
     }
 
+    //checks what boolean state the object is in and moves the object in that specific direction
     void Move()
     {
-        if (isRight) //moves object to the right
+        if (isRight)
         {
             transform.position += transform.right * speed * Time.deltaTime;
         }
 
-        if (isLeft) //moves object to the left
+        if (isLeft)
         {
             transform.position += -transform.right * speed * Time.deltaTime;
         }

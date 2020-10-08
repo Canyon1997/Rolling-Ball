@@ -9,17 +9,17 @@ public class UpDownPlatform : MonoBehaviour
     public double maxHeight;
     public float speed;
 
-    public bool isTop, isLow;
+    [SerializeField] private bool isTop, isLow;
 
     private void Update()
     {
         Move();
-        if(isTop && isLow)
-        {
-            Debug.Log("Both can't be true at the same time!");
-        }
     }
 
+    /*
+     * Checks to see if the object is moving up or down from booleans isTop and isLow
+     * once the objects reach the max and minimum heights, they switch states moving the opposite direction
+     */
     private void Move()
     {
         if(isTop)
