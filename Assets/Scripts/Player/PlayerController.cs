@@ -11,6 +11,11 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     Vector3 moving = Vector3.zero;
 
+    [Header("Particles")]
+    public ParticleSystem oneCollectable;
+    public ParticleSystem twoCollectables;
+    public ParticleSystem threeCollectables;
+
     public Text scoreText;
     public Text LoseText;
     public Text WinText;
@@ -110,14 +115,17 @@ public class PlayerController : MonoBehaviour
             {
                 case 1:
                     Collectabletext.text = "You got 1 out of 3 items!\nIs that all you got?";
+                    oneCollectable.Play();
                     break;
 
                 case 2:
                     Collectabletext.text = "You got 2 out of 3 items!\nI guess that alright";
+                    twoCollectables.Play();
                     break;
 
                 case 3:
                     Collectabletext.text = "You got all 3 items!\nYoure a Pro!";
+                    threeCollectables.Play();
                     break;
 
                 default:
