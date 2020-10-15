@@ -8,26 +8,28 @@ using UnityEditor;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody rb;
-    Vector3 moving = Vector3.zero;
+    private Rigidbody rb;
+    private Vector3 moving = Vector3.zero;
 
     [Header("Particles")]
     public ParticleSystem oneCollectable;
     public ParticleSystem twoCollectables;
     public ParticleSystem threeCollectables;
 
+    [Header("UI Text")]
     public Text scoreText;
     public Text LoseText;
     public Text WinText;
     public Text Collectabletext;
-
+    
+    [Header("Player Speed")]
     public float speed = 10f;
 
     private float maxSpeed;
     private int score = 0;
 
-    bool gameFinished;
-    bool isDead;
+    private bool gameFinished;
+    private bool isDead;
 
     //Gets rigidbody component from player before the first frame
     private void Awake() => rb = GetComponent<Rigidbody>();
@@ -48,12 +50,21 @@ public class PlayerController : MonoBehaviour
         ScoreUI();
         RestartLevel();
         NextLevel();
+        QuitGame();
     }
 
     //Since we are dealing with physics, we need to place this function in FixedUpdate
     void FixedUpdate()
     {
         Movement();
+    }
+
+    void QuitGame()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     //Sets player movement via physics, player can control the ball until they have successfuly finished the level
