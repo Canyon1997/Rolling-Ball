@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : PlayerData
 {
     private Rigidbody rb;
     private Vector3 moving = Vector3.zero;
@@ -23,13 +23,21 @@ public class PlayerController : MonoBehaviour
     public Text Collectabletext;
     
     [Header("Player Speed")]
-    public float speed = 10f;
+    [SerializeField] private float p_speed = 10f;
 
     private float maxSpeed;
     private int score = 0;
 
     private bool gameFinished;
     private bool isDead;
+
+    public override float speed
+    {
+        get
+        {
+            return p_speed;
+        }
+    }
 
     //Gets rigidbody component from player before the first frame
     private void Awake() => rb = GetComponent<Rigidbody>();
@@ -42,7 +50,7 @@ public class PlayerController : MonoBehaviour
         WinText.text = "";
         Collectabletext.text = "";
         ScoreUI();
-        maxSpeed = speed + 5f;
+        maxSpeed = p_speed + 5f;
     }
 
     private void Update()
@@ -82,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
             moving = new Vector3(xMov, 0f, zMov);
 
-            rb.AddForce(moving * speed);
+            rb.AddForce(moving * p_speed);
         }
     }
 
@@ -178,10 +186,10 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Ramp"))
         {
-            speed = speed * 50;
+            p_speed = p_speed * 50;
         }else
         {
-            speed = 10;
+            p_speed = 10;
         }
     }
 }
